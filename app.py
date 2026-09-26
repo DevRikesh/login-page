@@ -129,7 +129,8 @@ def login():
 
         cursor.close()
         connection.close()
-
+#karua
+#buji
 
 if __name__ == "__main__":
     app.run(debug=True)
