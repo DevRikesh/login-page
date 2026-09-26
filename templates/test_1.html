@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated Login Page</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      background: #080b1a;
+      color: white;
+    }
+
+    .background {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 20%, #5b21b6 0%, transparent 30%),
+        radial-gradient(circle at 80% 80%, #0891b2 0%, transparent 30%),
+        #080b1a;
+      z-index: -2;
+    }
+
+    .login-card {
+      width: 380px;
+      padding: 45px 40px;
+      border-radius: 25px;
+      background: rgba(255, 255, 255, 0.09);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+      text-align: center;
+    }
+
+    .login-card h1 {
+      font-size: 34px;
+      margin-bottom: 8px;
+      background: linear-gradient(90deg, #00f5ff, #c084fc, #ff4ecd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .login-card p {
+      color: #cbd5e1;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    .input-box {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .input-box input {
+      width: 100%;
+      padding: 15px 48px 15px 18px;
+      border: none;
+      outline: none;
+      border-radius: 12px;
+      color: white;
+      font-size: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      transition: 0.3s;
+    }
+
+    .input-box input::placeholder {
+      color: #aab3c5;
+    }
+
+    .input-box input:focus {
+      border-color: #00eaff;
+      box-shadow: 0 0 15px rgba(0, 234, 255, 0.3);
+    }
+
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transform: translateY(-50%);
+      border: none;
+      background: transparent;
+      color: #cbd5e1;
+      cursor: pointer;
+      font-size: 18px;
+      line-height: 1;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .input-box:focus-within .toggle-password {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .toggle-password:hover {
+      color: #67e8f9;
+    }
+
+    .options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 5px 0 25px;
+      font-size: 13px;
+      color: #cbd5e1;
+    }
+
+    .options a {
+      color: #67e8f9;
+      text-decoration: none;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      background: linear-gradient(90deg, #06b6d4, #7c3aed, #ec4899);
+      background-size: 200% 200%;
+      transition: 0.3s;
+      animation: gradient 4s ease infinite;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(124, 58, 237, 0.5);
+    }
+
+    .signup {
+      margin-top: 25px;
+      font-size: 14px;
+      color: #cbd5e1;
+    }
+
+    .signup a {
+      color: #67e8f9;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    @keyframes gradient {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .circle {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.25;
+    }
+
+    .circle.one {
+      width: 120px;
+      height: 120px;
+      background: #22d3ee;
+      top: 10%;
+      left: 10%;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .circle.two {
+      width: 90px;
+      height: 90px;
+      background: #f472b6;
+      bottom: 12%;
+      right: 12%;
+      animation: float 8s ease-in-out infinite reverse;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-30px);
+      }
+    }
+
+    @media (max-width: 450px) {
+      .login-card {
+        width: 90%;
+        padding: 35px 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background"></div>
+
+  <div class="circle one"></div>
+  <div class="circle two"></div>
+
+  <div class="login-card">
+    <h1>Welcome Back</h1>
+    <p>Login to continue to your account</p>
+
+    <form id="loginForm">
+      <div class="input-box">
+        <input
+          type="email"
+          id="email"
+          placeholder="Email address"
+          required
+        >
+      </div>
+
+      <div class="input-box">
+        <input
+          type="password"
+          id="password"
+          placeholder="Password"
+          required
+        >
+
+        <button
+          type="button"
+          class="toggle-password"
+          id="togglePassword"
+          aria-label="Show password"
+          onclick="togglePasswordVisibility()"
+        >😌</button>
+      </div>
+
+      <div class="options">
+        <label>
+          <input type="checkbox">
+          Remember me
+        </label>
+
+        <a href="#">Forgot password?</a>
+      </div>
+
+      <button class="login-btn" type="submit">
+        Sign In
+      </button>
+      
+      <p id="loginMessage" style="margin-top: 15px; color: #ffeb3b; font-size: 13px;"></p>
+    </form>
+
+    <div class="signup">
+      Don't have an account?
+      <a href="/register">Create account</a>
+    </div>
+
+    <div class="signup">
+      <a id="guest">use as guest</a>
+    </div>
+  </div>
+
+  <script>
+    function togglePasswordVisibility() {
+      const passwordInput = document.getElementById("password");
+      const toggleButton = document.getElementById("togglePassword");
+      const isHidden = passwordInput.type === "password";
+
+      passwordInput.type = isHidden ? "text" : "password";
+      toggleButton.textContent = isHidden ? "🧐" : "😌";
+      toggleButton.setAttribute(
+        "aria-label",
+        isHidden ? "Hide password" : "Show password"
+      );
+    }
+    document.getElementById("guest").addEventListener("click",function(){
+      window.location.href="/dashboard";
+    });
+
+    document.getElementById("loginForm").addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const response = await fetch("/api/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email: email, password: password })
+        });
+        const result = await response.json();
+        
+        const message = document.getElementById("loginMessage");
+        message.textContent = result.message;
+
+        if (result.success) {
+
+          window.location.href = "/dashboard";
+          alert("Welcome back, " + result.username + "!");
+            //Optional: window.location.href = "/dashboard";
+        } else {
+            message.style.color = "#ff4ecd"; 
+        }
+      } catch (error) {
+        document.getElementById("loginMessage").textContent = "An error occurred during login.";
+      }
+    });
+
+  </script>
+</body>
+</html>
